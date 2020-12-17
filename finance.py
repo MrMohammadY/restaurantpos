@@ -1,3 +1,6 @@
+from datetime import datetime as time
+
+
 # TODO-1: Add Bill class here
 # TODO-1: Add Payment class here
 # TODO-1: Add .sample() classmethod for Bill and Payment which returns
@@ -13,6 +16,30 @@
 #         def sample(cls):
 #             return cls(name='ali', number=10)
 
+class Bill:
+
+    def __init__(self, uuid, total_price, payment):
+        self.uuid = uuid
+        self.total_price = total_price
+        self.payment = payment
+
+    @classmethod
+    def sample(cls):
+        return cls(uuid=1, total_price=12000, payment=Payment.sample())
+
+
+class Payment:
+
+    def __init__(self, uuid, payment_type, is_paid, datetime, price):
+        self.uuid = uuid
+        self.payment_type = payment_type
+        self.is_paid = is_paid
+        self.datetime = datetime
+        self.price = price
+
+    @classmethod
+    def sample(cls):
+        return cls(uuid=1, payment_type='a', is_paid=True, datetime=time.now(), price=12000)
 
 # TODO-2: Replace all uuid attrs with uuid.uuid4() method and prevent class
 #       to get from input
