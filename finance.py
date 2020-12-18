@@ -1,4 +1,6 @@
 from datetime import datetime as time
+from uuid import uuid4
+from khayyam import JalaliDatetime
 
 
 # TODO-1: Add Bill class here
@@ -16,35 +18,48 @@ from datetime import datetime as time
 #         def sample(cls):
 #             return cls(name='ali', number=10)
 
-class Bill:
 
-    def __init__(self, uuid, total_price, payment):
-        self.uuid = uuid
+class Bill:
+    bill_list = list()
+
+    def __init__(self, total_price, payment):
+        self.uuid = uuid4()
         self.total_price = total_price
         self.payment = payment
 
     @classmethod
     def sample(cls):
-        return cls(uuid=1, total_price=12000, payment=Payment.sample())
+        return cls(
+            total_price=12000,
+            payment=Payment.sample()
+        )
 
 
 class Payment:
+    payment_list = list()
 
-    def __init__(self, uuid, payment_type, is_paid, datetime, price):
-        self.uuid = uuid
+    def __init__(self, payment_type, is_paid, price):
+        self.uuid = uuid4()
         self.payment_type = payment_type
         self.is_paid = is_paid
-        self.datetime = datetime
+        self.datetime = time.now()
+        self.jalali_datetime = JalaliDatetime.now().strftime('%C')
         self.price = price
 
     @classmethod
     def sample(cls):
-        return cls(uuid=1, payment_type='a', is_paid=True, datetime=time.now(), price=12000)
+        return cls(
+            payment_type='a',
+            is_paid=True,
+            price=12000
+        )
 
 # TODO-2: Replace all uuid attrs with uuid.uuid4() method and prevent class
 #       to get from input
 # TODO-2: Change datetime attr to be assigned automatically in Payment class
 # TODO-2: Add jalali_datetime property to the Payment class
+
+
 # TODO-3: Set valid Payment instance for payment attr in Bill instance
 # TODO-3: Add show_unpaid() classmethod to the Bill class which will return a
 #       list of all unpaid bills, (Implementation is up to you)

@@ -1,3 +1,6 @@
+from uuid import uuid4
+
+
 # TODO-1: Add Table class here
 # TODO-1: Add .sample() classmethod for Table which returns  an instance:
 # for example:
@@ -13,15 +16,19 @@
 class Table:
     table_list = list()
 
-    def __init__(self, uuid, capacity, number, reserved, is_available):
-        self.uuid = uuid
+    def __init__(self, capacity, number, reserved, is_available):
+        self.uuid = uuid4()
         self.capacity = capacity
         self.number = number
         self.reserved = reserved
         self.is_available = is_available
+        self.table_list.append(self)
 
     @classmethod
     def sample(cls):
-        return cls(uuid=1, capacity=5, number=1, reserved=False, is_available=True)
-
-
+        return cls(
+            capacity=5,
+            number=1,
+            reserved=False,
+            is_available=True
+        )

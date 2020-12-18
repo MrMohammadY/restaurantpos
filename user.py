@@ -12,6 +12,7 @@
 
 
 class Supervisor:
+    user_list = list()
 
     def __init__(self, username, password, phone_number):
         self.username = username
@@ -20,4 +21,8 @@ class Supervisor:
 
     @classmethod
     def sample(cls):
-        return cls(username='Ali', password='1234', phone_number='09101916484')
+        return cls(
+            username='Ali',
+            password='1234',
+            phone_number='09101916484'
+        )

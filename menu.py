@@ -1,4 +1,8 @@
 from datetime import datetime as time
+from khayyam import JalaliDatetime
+from uuid import uuid4
+
+
 # TODO-1: Add Item class here
 # TODO-1: Add .sample() classmethod for Item which returns an instance:
 # for example:
@@ -13,20 +17,38 @@ from datetime import datetime as time
 
 
 class Item:
+    _id = 0
     food_list = list()
     beverage_list = list()
     starter_list = list()
+    item_list = list()
 
-    def __init__(self, uuid, name, item_type, price, datetime):
-        self.uuid = uuid
+    def __init__(self, name, item_type, price):
+        self.uuid = uuid4()
+        self.item_id = self.generate_id()
         self.name = name
         self.item_type = item_type
         self.price = price
-        self.datetime = datetime
+        self.datetime = time.now()
+        self.item_list.append(self)
 
     @classmethod
     def sample(cls):
-        return cls(uuid=1, name='potato', item_type='f', price='1000', datetime=time.now())
+        return cls(
+            name='potato',
+            item_type='f',
+            price=10000,
+        )
+
+    @property
+    def jalali_datetime(self):
+        return JalaliDatetime(self.datetime).strftime('%C')
+
+    @classmethod
+    def generate_id(cls):
+        cls._id += 1
+        return cls._id
+
 
 # TODO-2: Add item_id to the Item class, item_id should be auto incremental
 # TODO-2: item_types should be one of (f, s or b) for Food, Starter or Beverage
